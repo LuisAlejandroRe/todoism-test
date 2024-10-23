@@ -19,6 +19,8 @@ test.describe("Suite de pruebas", () => {
 
   test("Add task", async ({ page }) => {
     await taskPage.addTask("New homework");
+
+    // Verificar que se creó la tarea
     await taskPage.verifyTaskVisible("New homework");
   });
 
@@ -26,7 +28,7 @@ test.describe("Suite de pruebas", () => {
     await taskPage.addTask("Nueva tarea");
     await taskPage.completeTask("Nueva tarea");
 
-    // Verificar que la tarea está marcada como completada (verificamos usando el icono de completada)
+    // Verificar que la tarea está marcada como completada al mostrarse el ícono de completada
     await expect(
       page.locator('span:has-text("check_box Nueva tarea")')
     ).toBeVisible();
@@ -37,6 +39,7 @@ test.describe("Suite de pruebas", () => {
     await taskPage.completeTask("homework");
     await taskPage.clearTasks();
 
+    // Verificar que la tarea fue limpiada y ya no se encuentra visible
     await expect(page.locator("text=homework")).not.toBeVisible();
   });
 });
